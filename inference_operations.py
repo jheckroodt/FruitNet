@@ -188,7 +188,7 @@ def top_two_accuracy(A_pred,Y):
     
     def find_penultimate_max(X,max_remove,dim):
         for i in range(dim):
-            X[max_remove[i],i]=-np.inf
+            X[max_remove[i],i]=-1
         penultimate_max=np.argmax(X,axis=0).reshape(1,dim)
         return penultimate_max
 
