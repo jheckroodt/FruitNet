@@ -1,5 +1,6 @@
 import numpy as np
 import h5py
+import matplotlib.pyplot as plt
 from dataset_operations import *
 from initialization_operations import *
 from network_operations import *
