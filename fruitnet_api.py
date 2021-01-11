@@ -160,6 +160,7 @@ class FruitNet():
         axes[0].imshow(X[0,:,:,0])
         for i in range(strips):
             axes[i+1].imshow(Xt[i].reshape(X.shape[1]//strips,X.shape[2]))
+        plt.show()
         print('The label corresponding to the above item of data (read from left to right) is given by:\n'+str(Y.reshape(Y.shape[0],)))
     
     def addLayer(self,name,n_H,activation,net='sub'):
