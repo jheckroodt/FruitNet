@@ -1,4 +1,5 @@
 import numpy as np
+import h5py
 from dataset_operations import *
 from initialization_operations import *
 from network_operations import *
