@@ -8,6 +8,13 @@ from inference_operations import *
 class FruitNet():
 
     def __init__(self):
+        '''
+        Description: initializes the hyperparameters of our model
+
+        Inputs: none
+
+        Returns: none
+        '''
 
         #instantiate hyperparameters
         self.__hp={'learning_rate':0,
@@ -23,6 +30,17 @@ class FruitNet():
                    'supnet_activations':[]}
     
     def __raw_shuffle__(self,X,Y):
+        '''
+        Description: shuffles the dataset X, preserving the conventional image dataset shape
+
+        Inputs:
+        - X: the image dataset X, (m,w,w,1) (where w is the width of the square grayscale images in the dataset X)
+        - Y: the labels corresponding to X
+
+        Returns:
+        - shuffled_X: the dataset X, shuffled
+        - shuffled_Y: the labels Y, shuffled, so that shuffled_X and shuffled_Y maintain the correspodance present in X and Y
+        '''
 
         #permute [1,2,...,m]
         permutation=np.random.permutation(X.shape[0])
@@ -34,6 +52,20 @@ class FruitNet():
         return shuffled_X,shuffled_Y
 
     def loadData(self,filename,features,labels,split=0.05):
+        '''
+        Description: load data to our model
+
+        Inputs:
+        - filename: the h5py file from which our data comes
+        - features: the name of the features dataset (of shape (m,w,w,1), as above)
+        - labels: the corresponding labels dataset
+        - split: the split between the training set and the test set (as a value between 0 and 1, exclusive)
+
+        Returns: none
+        '''
+
+        #confirm the validity of split
+        assert 0<split<1
 
         #retrieve data
         try:
@@ -67,6 +99,21 @@ class FruitNet():
         self.__Y_test=shuffled_Y[:,:self.__test_quant]
 
     def __retrieve_single_split_example__(self,strips,view_data=True):
+        '''
+        Description: as the method name suggests, retrieves a single training example, split into appropriate subsections (as above), from the test set
+
+        Inputs:
+        - strips: the number of strips into which the aforementioned single test set element is split
+        - view_data: dictates whether or not the function is being called from viewData or __decoy_parameters__
+
+        Returns:
+        if view_data:
+            - X: the entire example taken from the test set
+            - Xt: a tuple containing the subsets into which X has been split
+            - Y: the label corresponding to X
+        else:
+            - a tuple containing the subsets into which X (as above) has been split, as well as the label corresponding to the aforementioned test set element X (denoted Yt in this case, instead of Y, as above)
+        '''
 
         #select a random sample number
         try:
@@ -89,6 +136,14 @@ class FruitNet():
 
 
     def viewData(self,strips):
+        '''
+        Description: used to visualize the splitting of a training example (technically, though, we use an example from the test set to this end)
+
+        Inputs:
+        - strips: the number of strips into which we wish to split a single test set element
+
+        Returns: none
+        '''
 
         #confirm the validity of the number of strips
         assert type(strips)==int
@@ -106,6 +161,16 @@ class FruitNet():
         print('The label corresponding to the above item of data (read from left to right) is given by:\n'+str(Y.reshape(Y.shape[0],)))
     
     def addLayer(self,name,n_H,activation,net='sub'):
+        '''
+        Description: adds a hidden layer to the network of choice (bearing in mind that each subnet has the exact same architecture)
+
+        Inputs:
+        - name: the name of the layer we're adding to our model
+        - n_H: the number of hidden nodes in this layer
+        - net: dictates whether or not the layer is being added to the subnet architecture, or the supernet architecture
+
+        Returns: none
+        '''
         
         #confirm the validity of name, n_H, activation, and supnet
         assert type(name)==str
@@ -129,6 +194,14 @@ class FruitNet():
             raise ValueError('you have not selected a valid network to add a layer to. please re-enter the net string and try again.')
     
     def __decoy_parameters__(self):
+        '''
+        Description: generates a set of subtitute parameters for the purpose of producing a model summary
+
+        Inputs: none
+
+        Returns:
+        - the aforementioned set of substitute parameters
+        '''
 
         #extract an example from the test set to preserve computational efficiency
         single_example_mini_batch=self.__retrieve_single_split_example__(self.__hp['strips'],view_data=False)
@@ -137,6 +210,13 @@ class FruitNet():
         return build_nets(single_example_mini_batch,self.__hp)
 
     def modelSummary(self):
+        '''
+        Description: generates a model summary, and prints said summary to the terminal
+
+        Inputs:
+
+        Returns:
+        '''
 
         #confirm that enough hyperparameters have been specified in order for a summary to be generated
         assert self.__hp['strips']>0
@@ -211,6 +291,14 @@ class FruitNet():
         print('\n')
 
     def adjustLearningRate(self,learning_rate):
+        '''
+        Description: adjusts the learning rate hyperparameter
+
+        Inputs:
+        - learning_rate: the proposed learning rate
+
+        Returns: none
+        '''
 
         #confirm the validity of the proposed learning_rate
         assert type(learning_rate)==float
@@ -222,6 +310,14 @@ class FruitNet():
         print('And the new learning rate is '+str(self.__hp['learning_rate'])+'.')
 
     def adjustEpochs(self,epochs):
+        '''
+        Description: adjusts the epochs hyperparameter
+
+        Inputs:
+        - learning_rate: the proposed number of epochs
+
+        Returns: none
+        '''
 
         #confirm the validity of the proposed number of epochs
         assert type(epochs)==int
@@ -233,6 +329,14 @@ class FruitNet():
         print('And the new number of epochs is '+str(self.__hp['epochs'])+'.')
 
     def adjustBatchSize(self,size):
+        '''
+        Description: adjusts the mini batch size hyperparameter
+
+        Inputs:
+        - learning_rate: the proposed mini batch size
+
+        Returns: none
+        '''
 
         #confirm the validity of the proposed number of epochs
         assert type(size)==int
@@ -244,6 +348,14 @@ class FruitNet():
         print('And the new mini batch size is '+str(self.__hp['mini_batch_size'])+'.')
     
     def adjustInitialization(self,init):
+        '''
+        Description: adjusts the initialization method hyperparameter
+
+        Inputs:
+        - learning_rate: the proposed intialization method
+
+        Returns: none
+        '''
 
         #confirm the validity of the proposed intialization technique
         assert init in ['None','He','Xavier','Other']
@@ -254,6 +366,14 @@ class FruitNet():
         print('And the new initialization technique is '+str(self.__hp['initialization'])+'.')
 
     def adjustStrips(self,strips):
+        '''
+        Description: adjusts the strips hyperparameter
+
+        Inputs:
+        - learning_rate: the proposed number of strips
+
+        Returns: none
+        '''
 
         #confirm the validity of the proposed numbwe of strips
         assert type(strips)==int
@@ -265,6 +385,13 @@ class FruitNet():
         print('And the new number of strips into which training examples are split is '+str(self.__hp['strips'])+'.')
     
     def compile(self):
+        '''
+        Description: compiles the model, trains it, and then assesses its performance on the test set
+
+        Inputs: none
+
+        Returns: none
+        '''
 
         #check the validity of the relevant hyperparameters before initiating training
         assert self.__hp['learning_rate']>0
@@ -294,6 +421,3 @@ class FruitNet():
         #rectify the activation function hyperparameters for both the sub- and the supnet once training is complete
         self.__hp['subnet_activations'].pop()
         self.__hp['supnet_activations'].pop()
-
-    def saveModel(self):
-        pass
