@@ -61,7 +61,7 @@ From here, we will turn our attention to a discussion of the architecture of our
 With all of this theory in place, let us put together a visual explanation of the way in which information is propagated forward along our model. We have the following illustration.
 
 <p align="center">
-<img src="readme_image_content/forward_pass.png" width="705" height="360" >
+<img src="readme_image_content/forward_pass_graphic.png" width="705" height="360" >
 </p>
 
 From the above illustration, we see the process of splitting the input image into four strips (for the sake of the example, although in general we may be able to split our input image into more than just four strips, of course). We see also when we apply the flattening process to each of the strips, before feeding each of the flattened strips into their respective subnets. We see how, from here, the subnetse each produce an activation, said activations are concatenated into a single activation, which then serves as an input to the supernet of the same model. During training each of the above networks is, in some sense, trained individually on the training set. This illustration provides, to an extent, the most whollistic overview of the exact way in which FruitNet models manage to model data.
