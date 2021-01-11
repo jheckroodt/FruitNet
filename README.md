@@ -42,7 +42,7 @@ As far as loading in data is concerned, the above is all one needs to know. From
 The above gives us an idea of how data is, finally, presented to a ready-to-train network, with the exception of one final step in our data preparation journey, namely flattening. To this end, since it does not exactly matter to us in which way we achieve our flattening goals, we simply _NumPy_'s `reshape` method (applicable to `np.array` objects). The following process illustration shows demonstrates how to process works, to an extent.
 
 <p align="center">
-<img src="readme_image_content/flatten_example.png" class="centre" width="486" height="360" >
+<img src="readme_image_content/flattened_9_example.png" class="centre" width="788" height="360" >
 </p>
 
 From here, we will turn our attention to a discussion of the architecture of our model
