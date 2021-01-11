@@ -35,8 +35,8 @@ The FruitNet API loads in data from _.h5_ files (using the _h5py_ library, of co
 As far as loading in data is concerned, the above is all one needs to know. From here, let us consider another useful data-oriented method of the FruitNet API, namely the `viewData` method. This method allows us to extract from the test set (which is automatically generated upon loading in data using the above method) a single image (at random) and split said image in accordance with `split`, the lone parameter assumed by `viewData` that dictates the number of strips into which the aforementioned image will be split. Examples of the above process look as follows.
 
 <p align="center">
-<img src="readme_image_content/strip_2.png" width="250" height="360" class="center"><img src="readme_image_content/strip_8.png" width="250" height="360" class="center">
-<img src="readme_image_content/strip_9.png" width="250" height="360" >
+<img src="readme_image_content/strip_2.png" width="200" height="288" class="center"><img src="readme_image_content/strip_8.png" width="200" height="288" class="center">
+<img src="readme_image_content/strip_9.png" width="200" height="288" >
 </p>
 
 The above gives us an idea of how data is, finally, presented to a ready-to-train network, with the exception of one final step in our data preparation journey, namely flattening. To this end, since it does not exactly matter to us in which way we achieve our flattening goals, we simply _NumPy_'s `reshape` method (applicable to `np.array` objects). The following process illustration shows demonstrates how to process works, to an extent.
