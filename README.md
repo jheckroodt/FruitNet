@@ -29,6 +29,8 @@ Note that there are two files in this repository, _dataset_operations.py_, and _
 
 The FruitNet API loads in data from _.h5_ files (using the _h5py_ library, of course) by reading from two datasets: an input feature dataset, and a corresponding label dataset. The input feature dataset is necessarily of the shape `(m,w,w,1)`, where `m` is the number of images in the dataset, `w` is the width of our image (and therefore also the height of our image, since our images are necessarily square), and the final dimension of the dataset shape being `1` is a consequence of the fact that we are dealing exclusively with grayscale images. Similarly, the corresponding label dataset is necessarily of shape `(c,m)`, where `m` maintains its definition, and `c` is the number of classes to which our images may belong.
 
+As far as the user is concerned, the above is all one needs to know (in order to use the FruitNet API), but for those of you interested, consider the workings of the `viewData` method contained by the FruitNet API. This method allows us to extract from the test set (which is automatically generated upon loading in data using the above method) a single image (at random) and split said image in accordance with `split`, the lone parameter assumed by `viewData` that dictates the number of strips into which the aforementioned image will be split. Examples of the above process look as follows.
+
 <a name="arch"></a>
 ## 3. Architecture
 
