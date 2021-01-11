@@ -10,7 +10,7 @@ The following README is a breakdown of each of the key components of the above r
     1. [  Subnets  ](#sub)
     2. [  The Supernet  ](#sup)
 4. [  Example Network(s)  ](#ex)
-    1. [  FruitNet_v1.0  ](#fn1)
+    1. [  _FruitNet_v1.0_  ](#fn1)
 5. [  FruitNet Vision  ](#fnv)
 6. [  References  ](#ref)
 
