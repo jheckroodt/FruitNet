@@ -70,7 +70,7 @@ From the above illustration, we see the process of splitting the input image int
 ## 4. Example Network(s)
 
 <a name="fn1"></a>
-### i. FruitNet_v1.0
+### i. _FruitNet_v1.0_
 
 This is the first of the models built using the FruitNet API (hence the name), and it seeks to model the data in the MNIST dataset of handwritten digits by training on a (very) small subset of said dataset (a subset of 19,999 elements from the original dataset, with (roughly) 5% of said subset set aside to serve the purposes of a test set (there are exactly 999 images in the test set)). Our model was trained using gradient descent, a learning rate of 0.05, subject to learning rate decay, over 256 epochs, with a mini batch size of 128. We split our training set (and therefore also our test set) into four strips (each of width 7, given that the images in the aforementioned MNIST dataset are of shape 28 by 28), resulting in a model comprised ultimately of 4 subnets, and a single supernet, as we'd expect. The following exerpt is from the _fruitnet_reimagined.ipynb_ notebook.
 
